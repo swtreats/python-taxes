@@ -93,6 +93,13 @@ class F1040(Form):
         f['s1_3'] = f.spouseSum(inputs, 'business_income')
         f['s1_7'] = inputs.get('unemployment')
 
+        f['s1_8z'] = inputs.get('in_lieu_of_payment')
+        f['s1_9'] = f.rowsum(['s1_8a', 's1_8b', 's1_8c', 's1_8d', 's1_8e',
+                              's1_8f', 's1_8g', 's1_8h', 's1_8i', 's1_8j',
+                              's1_8k', 's1_8l', 's1_8m', 's1_8n', 's1_8o'
+                              's1_8p', 's1_8q', 's1_8r', 's1_8s', 's1_8t',
+                              's1_8u', 's1_8v', 's1_8w', 's1_8x', 's1_8y',
+                              's1_8z'])
         f['s1_10'] = f.rowsum(['s1_1', 's1_2a', 's1_3', 's1_4',
                                's1_5', 's1_6', 's1_7', 's1_9'])
         f['8'] = f.get('s1_10')
@@ -240,6 +247,7 @@ class F1040(Form):
 
         f['s3_14'] = f.rowsum(['s3_13a', 's3_13b', 's3_13c', 's3_13d',
                                 's3_13f', 's3_13h', 's3_13z'])
+        f['s3_10'] = inputs.get('extension_payment')
         f['s3_15'] = f.rowsum(['s3_9', 's3_10', 's3_11', 's3_12', 's3_14'])
         f['31'] = f['s3_15']
 
