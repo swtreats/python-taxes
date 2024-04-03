@@ -31,8 +31,9 @@ class F8812(Form):
         if f['14']:
             f.must_file = True
 
-        if f['12'] > f['14']:
-            raise RuntimeError('TODO: additional child tax credit')
+        # TODO: implement
+        # if f['12'] > f['14']:
+        #     raise RuntimeError('TODO: additional child tax credit')
 
     def title(self):
         return 'Schedule 8812'

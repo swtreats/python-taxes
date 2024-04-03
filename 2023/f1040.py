@@ -81,6 +81,9 @@ class F1040(Form):
                 f8606 = f.addForm(F8606(inputs, None))
                 f['4b'] = f8606.rowsum(['15c', '18', '25c'])
 
+        # TODO: compute 6b from worksheet
+        f['6a'] = inputs.get('ssec_income')
+        f['6b'] = inputs.get('ssec_income_taxable')
         f.comment['7'] = 'Capital Gains'
         sd = F1040sd(inputs)
         f.addForm(sd)
