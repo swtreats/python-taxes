@@ -10,6 +10,7 @@ from f8801 import F8801
 from f8812 import F8812
 from f8959 import F8959
 from f8960 import F8960
+from f8962 import F8962
 from f8995a import F8995A
 import copy
 import math
@@ -95,6 +96,7 @@ class F1040(Form):
         f['s1_1'] = inputs.get('state_refund_taxable')
         f['s1_3'] = f.spouseSum(inputs, 'business_income')
         f['s1_7'] = inputs.get('unemployment')
+        f['s1_8z'] = inputs.get('other_income')
         f['s1_9'] = f.rowsum(['s1_8[a-z]'])
 
         f['s1_10'] = f.rowsum(['s1_1', 's1_2a', 's1_[3-7]', 's1_9'])
@@ -147,6 +149,16 @@ class F1040(Form):
 
         f.comment['16'] = 'Regular Tax'
         f['16'] = f.div_cap_gain_tax_worksheet(inputs, sd)['25']
+
+        f8962 = None
+        # compute premium tax credit
+        if 'aca_premium' in inputs or 'ptc_advance' in inputs:
+            f8962 = F8962(inputs, f)
+            if f8962['26'] > 0:
+                f['s3_9'] = f8962['26']
+            if f8962['29'] > 0:
+                f['s2_2'] = f8962['29']
+            f.addForm(f8962)
 
         # Compute line s3_1 now because it's needed by AMT
         f.comment['s3_1'] = 'Foreign Tax Paid'
